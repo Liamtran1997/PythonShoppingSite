@@ -1,4 +1,4 @@
-"""shopping URL Configuration
+"""config URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include('user.urls')),
     path('', include('product.urls')),
+    path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
