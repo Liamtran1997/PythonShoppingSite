@@ -13,3 +13,5 @@ class ProductSerializer(ModelSerializer):
         model = Product
         fields = ['id', 'name', 'price', 'unit', 'is_deleted', 'category']
 
+
+

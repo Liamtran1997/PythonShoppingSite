@@ -5,54 +5,35 @@ from rest_framework.decorators import api_view
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
 from rest_framework.response import Response
-# from . services import
+from . services import list_category_services, list_product_services, \
+    create_category_services, delete_category_services, update_category_services
 # Create your views here.
 
 
 # Hiển thị danh sách Category
 @api_view(['GET'])
 def list_category(request):
-    category = Category.objects.all()
-    serializer = CategorySerializer(category, many=True)
-    return Response(serializer.data)
+    return list_category_services()
 
 
 @api_view(['GET'])
 def list_product(request):
-    product = Product.objects.all()
-    serializer = CategorySerializer(product, many=True)
-    return Response(serializer.data)
+    return list_product_services()
 
 
-# Hiển thị form tạo mới 1 Category
 @api_view(['POST'])
 def create_category(request):
-    serializer = CategorySerializer(data=request.data)
-    try:
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response(serializer.data)
-    except:
-        return HttpResponse("Something went wrong!!!")
+    return create_category_services(request)
 
 
-@api_view(['POST'])
+@api_view(['PUT'])
 def update_category(request, pk):
-    category = Category.objects.get(id=pk)
-    serializer = CategorySerializer(data=request.data)
-    try:
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-        return Response(serializer.data)
-    except:
-        return HttpResponse("Something went wrong!!!")
+    update_category_services(request, pk)
 
 
 @api_view(['DELETE'])
 def deleted_category(request, pk):
-    category = Category.objects.get(id=pk)
-    category.delete()
-    return Response("This Category successfully delete!")
+    delete_category_services(request, pk)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
