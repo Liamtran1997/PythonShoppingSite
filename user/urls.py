@@ -1,11 +1,15 @@
-from django.urls import path, re_path
+from django.urls import path, include
 from . import views
+from knox import views as knox_views
+from rest_framework.routers import DefaultRouter
+router = DefaultRouter()
+router.register('user', views.UserViewSet)
 
 urlpatterns = [
-    path('', views.show_new, name='Show'),
-    path('<int:num>/', views.show_num, name='show_num'),
-    re_path(r'^a/(?P<btcq>[0-9]{1, 2})/$', views.show_cq, name="show_cq"),
-    path('<str:val>/', views.show_str, name='show_str'),
+    path('', include(router.urls)),
+    path('api/register/', views.register_user, name='register'),
+    path('api/login/', views.login_user, name='login'),
+    path('api/logout/', knox_views.LogoutView.as_view(), name='logout'),
 ]
 
 

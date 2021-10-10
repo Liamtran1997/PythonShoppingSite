@@ -10,9 +10,11 @@ router.register('product', views.ProductViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('list-category/', views.listcategory, name='list-category'),
-    path('list-product//', views.listproduct, name='list-product'),
-    path('create-category/', views.createcategory, name='create-category'),
+    path('list-category/', views.list_category, name='list-category'),
+    path('list-product/', views.list_product, name='list-product'),
+    path('create-category/', views.create_category, name='create-category'),
     path('update-category/<str:pk>/', views.update_category, name='update-category'),
     path('delete-category/<str:pk>/', views.deleted_category, name='delete-category'),
 ]
+
+

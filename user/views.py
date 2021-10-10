@@ -1,16 +1,31 @@
-from django.shortcuts import render , HttpResponse
-from django.views import View
+from django.shortcuts import render, HttpResponse
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import viewsets, generics, permissions
+from .models import User, User_Detail
+from .serializers import UserSerializer, RegisterUserSerializer
+from knox.models import AuthToken
+from .services import LoginAPI, RegisterAPI
+from django.contrib.auth import login
 # Create your views here.
 
 
-def show_new(View):
-    return HttpResponse("<h1>CHECK 123</h1>")
+# @api_view(['POST'])
+# def register_user(request, *args, **kwargs):
+#     return RegisterAPI.post(request, *args, **kwargs)
+#
+#
+# @api_view(['POST'])
+# def login_user(request):
+#     return LoginAPI.post(request)
 
-def show_num(View, num):
-    return HttpResponse("<h1>Đây là Số nhập vào : " + str(num) + "</h1")
 
-def show_str(View, val):
-    return HttpResponse("<h2>Đây là Str nhập vào :</h2>"+ val)
+class UserViewSet(viewsets.ViewSet,
+                  generics.ListAPIView,
+                  generics.CreateAPIView,):
+    queryset = User.objects.filter(is_active=True)
+    serializer_class = UserSerializer
 
-def show_cq(View, btcq):
-    return HttpResponse("<h3>Show là biểu thức chính quý : "+ btcq +"</h3>")
+
+

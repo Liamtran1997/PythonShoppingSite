@@ -28,12 +28,12 @@ def create_category(request):
 
 @api_view(['PUT'])
 def update_category(request, pk):
-    update_category_services(request, pk)
+    return update_category_services(request, pk)
 
 
 @api_view(['DELETE'])
 def deleted_category(request, pk):
-    delete_category_services(request, pk)
+    return delete_category_services(request, pk)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
